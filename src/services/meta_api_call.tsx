@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 
-export default async function readBlockChain() {
+export default async function readBlockChain(): Promise<number> {
   const provider = new ethers.providers.Web3Provider(
     window.ethereum as Window['ethereum']
   )
@@ -14,21 +14,22 @@ export default async function readBlockChain() {
   // const signer = provider.getSigner()
 
   // Look up the current block number
-  const data = await provider.getBlockNumber()
-  return data
-  // 14467379
-
-  // Get the balance of an account (by address or ENS name, if supported by network)
-  // const balance = await provider.getBalance('ethers.eth')
-  // { BigNumber: "82826475815887608" }
-
-  // Often you need to format the output to something more user-friendly,
-  // such as in ether (instead of wei)
-  // ethers.utils.formatEther(balance)
-  // '0.082826475815887608'
-
-  // If a user enters a string in an input field, you may need
-  // to convert it from ether (as a string) to wei (as a BigNumber)
-  // ethers.utils.parseEther('1.0')
-  // { BigNumber: "1000000000000000000" }
+  const currentBlockNumber = await provider.getBlockNumber()
+  return currentBlockNumber
 }
+
+// 14467379
+
+// Get the balance of an account (by address or ENS name, if supported by network)
+// const balance = await provider.getBalance('ethers.eth')
+// { BigNumber: "82826475815887608" }
+
+// Often you need to format the output to something more user-friendly,
+// such as in ether (instead of wei)
+// ethers.utils.formatEther(balance)
+// '0.082826475815887608'
+
+// If a user enters a string in an input field, you may need
+// to convert it from ether (as a string) to wei (as a BigNumber)
+// ethers.utils.parseEther('1.0')
+// { BigNumber: "1000000000000000000" }
