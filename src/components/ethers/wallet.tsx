@@ -29,15 +29,7 @@ export default function Wallet() {
     const provider = new ethers.providers.Web3Provider(
       window.ethereum as Window['ethereum']
     )
-
-    // MetaMask requires requesting permission to connect users accounts
     const accounts = await provider.send('eth_requestAccounts', [])
-
-    // The MetaMask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    // const signer = provider.getSigner()
-
     const balance = await provider.getBalance(accounts[0])
     return balance
   }
@@ -93,6 +85,26 @@ export default function Wallet() {
       <h3>Balance: {String(metaBalance)} ETH</h3>
       <p>Current Ethereum Block Number:{String(blockNumber)} </p>
       <p>Send Ethereum</p>
+      <form id='form-send' onSubmit={handleFormSubmit}>
+        <label>Target Address</label>
+        <input type='text' id='address'></input>
+        <label>Amount</label>
+        <input type='text' id='amount'></input>
+        <button type='submit' form='form-send'>
+          Submit
+        </button>
+      </form>
+      <p>Send DAI</p>
+      <form id='form-send' onSubmit={handleFormSubmit}>
+        <label>Target Address</label>
+        <input type='text' id='address'></input>
+        <label>Amount</label>
+        <input type='text' id='amount'></input>
+        <button type='submit' form='form-send'>
+          Submit
+        </button>
+      </form>
+      <p>Send USDC</p>
       <form id='form-send' onSubmit={handleFormSubmit}>
         <label>Target Address</label>
         <input type='text' id='address'></input>

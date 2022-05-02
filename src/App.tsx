@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>very cool blockchain app</h1>
+        <h1>my first blockchain app</h1>
       </header>
       <MetaMask />
       <Wallet />

@@ -4,7 +4,7 @@
 export default function MetaMask() {
   return (
     <>
-      <p>wheres your metamask?</p>
+      <p>metamask popup?</p>
     </>
   )
 }
