@@ -4,6 +4,8 @@ import { ethers } from 'ethers'
 export default function Wallet() {
   const [blockNumber, updateBlockNumber] = useState<number>()
   const [metaBalance, updateMetaBalance] = useState<string>()
+  const [sendAmount, updateSendAmount] = useState<BigInt>()
+  const [sendTargetAddress, updateSendTargetAddress] = useState<string>()
 
   async function readBlockChain(): Promise<number> {
     const provider = new ethers.providers.Web3Provider(
@@ -60,11 +62,46 @@ export default function Wallet() {
     makeBlockChainCall()
   }, [])
 
+  function handleFormSubmit(e: React.SyntheticEvent) {
+    e.preventDefault()
+    const target = e.target as typeof e.target & {
+      amount: { value: BigInt }
+      address: { value: string }
+    }
+    const amount = target.amount.value // typechecks!
+    const address = target.address.value // typechecks!
+    updateSendAmount(amount)
+    updateSendTargetAddress(address)
+    async function sendEthereumTransaction() {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as Window['ethereum']
+      )
+      const signer = provider.getSigner()
+      await signer.sendTransaction({
+        to: address,
+        value: ethers.utils.parseEther(amount.toString())
+      })
+    }
+    sendEthereumTransaction()
+
+    // etc...
+  }
+
   return (
     <>
       <h2>MetaMask Balance</h2>
       <h3>Balance: {String(metaBalance)} ETH</h3>
-      <p>Current Etherium Block Number:{String(blockNumber)} </p>
+      <p>Current Ethereum Block Number:{String(blockNumber)} </p>
+      <p>Send Ethereum</p>
+      <form id='form-send' onSubmit={handleFormSubmit}>
+        <label>Target Address</label>
+        <input type='text' id='address'></input>
+        <label>Amount</label>
+        <input type='text' id='amount'></input>
+        <button type='submit' form='form-send'>
+          Submit
+        </button>
+      </form>
     </>
   )
 }
