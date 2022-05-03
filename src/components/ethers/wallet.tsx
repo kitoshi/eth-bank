@@ -56,7 +56,7 @@ export default function Wallet() {
 
     const daiAddress = 'dai.tokens.ethers.eth'
     const daiContract = new ethers.Contract(daiAddress, daiAbi, provider)
-    const balance = await daiContract.balanceOf('ricmoo.firefly.eth')
+    const balance = await daiContract.balanceOf(daiAddress)
     return balance
   }
 
