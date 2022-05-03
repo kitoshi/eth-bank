@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 export default function Wallet() {
   const [blockNumber, updateBlockNumber] = useState<number>()
   const [metaBalance, updateMetaBalance] = useState<string>()
+  const [daiBalance, updateDaiBalance] = useState<string>()
   const [sendAmount, updateSendAmount] = useState<BigInt>()
   const [sendTargetAddress, updateSendTargetAddress] = useState<string>()
 
@@ -34,6 +35,31 @@ export default function Wallet() {
     return balance
   }
 
+  async function getDaiBalance(): Promise<ethers.BigNumber> {
+    const provider = new ethers.providers.Web3Provider(
+      window.ethereum as Window['ethereum']
+    )
+    const daiAbi = [
+      // Some details about the token
+      'function name() view returns (string)',
+      'function symbol() view returns (string)',
+
+      // Get the account balance
+      'function balanceOf(address) view returns (uint)',
+
+      // Send some of your tokens to someone else
+      'function transfer(address to, uint amount)',
+
+      // An event triggered whenever anyone transfers to someone else
+      'event Transfer(address indexed from, address indexed to, uint amount)'
+    ]
+
+    const daiAddress = 'dai.tokens.ethers.eth'
+    const daiContract = new ethers.Contract(daiAddress, daiAbi, provider)
+    const balance = await daiContract.balanceOf('ricmoo.firefly.eth')
+    return balance
+  }
+
   useEffect((): ReturnType<EffectCallback> => {
     const makeBlockChainCall = async () => {
       const number = Promise.resolve(readBlockChain())
@@ -51,7 +77,14 @@ export default function Wallet() {
         updateMetaBalance(ethers.utils.formatEther(number))
       })
     }
+    const makeContractCall = async () => {
+      const number = Promise.resolve(getDaiBalance())
+      number.then(function (number) {
+        updateDaiBalance(ethers.utils.formatUnits(number, 18))
+      })
+    }
     makeBlockChainCall()
+    makeContractCall()
   }, [])
 
   function handleFormSubmit(e: React.SyntheticEvent) {
@@ -84,33 +117,34 @@ export default function Wallet() {
       <h2>MetaMask Balance</h2>
       <h3>Balance: {String(metaBalance)} ETH</h3>
       <p>Current Ethereum Block Number:{String(blockNumber)} </p>
+      <h4>Balance: {String(daiBalance)} DAI</h4>
       <p>Send Ethereum</p>
-      <form id='form-send' onSubmit={handleFormSubmit}>
+      <form id='ethereum' onSubmit={handleFormSubmit}>
         <label>Target Address</label>
         <input type='text' id='address'></input>
         <label>Amount</label>
         <input type='text' id='amount'></input>
-        <button type='submit' form='form-send'>
+        <button type='submit' form='ethereum'>
           Submit
         </button>
       </form>
       <p>Send DAI</p>
-      <form id='form-send' onSubmit={handleFormSubmit}>
+      <form id='dai' onSubmit={handleFormSubmit}>
         <label>Target Address</label>
         <input type='text' id='address'></input>
         <label>Amount</label>
         <input type='text' id='amount'></input>
-        <button type='submit' form='form-send'>
+        <button type='submit' form='dai'>
           Submit
         </button>
       </form>
       <p>Send USDC</p>
-      <form id='form-send' onSubmit={handleFormSubmit}>
+      <form id='usdc' onSubmit={handleFormSubmit}>
         <label>Target Address</label>
         <input type='text' id='address'></input>
         <label>Amount</label>
         <input type='text' id='amount'></input>
-        <button type='submit' form='form-send'>
+        <button type='submit' form='usdc'>
           Submit
         </button>
       </form>
