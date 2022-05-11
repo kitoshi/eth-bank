@@ -170,6 +170,7 @@ export default function Wallet() {
         ethers.utils.parseUnits(amount.toString(), 6)
       )
     }
+    console.log(e.currentTarget.innerHTML)
     switch (e.currentTarget.id) {
       case 'ethereum':
         sendEthereumTransaction()
@@ -185,19 +186,16 @@ export default function Wallet() {
   }
 
   return (
-    <>
+    <section>
       <h2>MetaMask Balance</h2>
-      <h3>Balance: {String(metaBalance)} ETH</h3>
-      <p>Send Ethereum</p>
-      <form id='ethereum' onSubmit={handleFormSubmit} ref={ethereumForm}>
-        <label>Target Address</label>
-        <input type='text' id='address'></input>
-        <label>Amount</label>
-        <input type='text' id='amount'></input>
-        <button type='submit' form='ethereum'>
-          Transfer
-        </button>
+      <form id='wallet' onSubmit={handleFormSubmit}>
+        <label>Target Wallet</label>
+        <input type='text'></input>
+        <button>Set</button>
+        <button>Clear</button>
       </form>
+      <h2>MetaMask Balance</h2>
+
       <h4>Balance: {String(daiBalance)} DAI</h4>
       <p>Send DAI</p>
       <form id='dai' onSubmit={handleFormSubmit} ref={daiForm}>
@@ -205,9 +203,8 @@ export default function Wallet() {
         <input type='text' id='address'></input>
         <label>Amount</label>
         <input type='text' id='amount'></input>
-        <button type='submit' form='dai'>
-          Transfer
-        </button>
+        <button type='submit'>Approve</button>
+        <button type='submit'>Transfer</button>
       </form>
       <h4>Balance: {String(USDCBalance)} USDC</h4>
       <p>Send USDC</p>
@@ -220,6 +217,17 @@ export default function Wallet() {
           Transfer
         </button>
       </form>
-    </>
+      <h3>Balance: {String(metaBalance)} ETH</h3>
+      <p>Send Ethereum</p>
+      <form id='ethereum' onSubmit={handleFormSubmit} ref={ethereumForm}>
+        <label>Target Address</label>
+        <input type='text' id='address'></input>
+        <label>Amount</label>
+        <input type='text' id='amount'></input>
+        <button type='submit' form='ethereum'>
+          Transfer
+        </button>
+      </form>
+    </section>
   )
 }

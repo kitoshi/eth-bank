@@ -2,15 +2,16 @@ import React from 'react'
 import './App.css'
 import Wallet from './components/ethers/wallet'
 import MetaMask from './components/ethers/metamask'
-
+import Transactions from './components/ethers/transactions'
 function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <h1>my first blockchain app</h1>
+        <h1>Transact DAI and USDC</h1>
       </header>
-      <MetaMask />
-      <Wallet />
+      <main>
+        <Transactions />
+      </main>
     </div>
   )
 }
