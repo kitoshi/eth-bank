@@ -3,6 +3,7 @@ import './App.css'
 import Wallet from './components/ethers/wallet'
 import MetaMask from './components/ethers/metamask'
 import Transactions from './components/ethers/transactions'
+import TestFunc from './components/ethers/testfile'
 function App() {
   return (
     <div className='App'>

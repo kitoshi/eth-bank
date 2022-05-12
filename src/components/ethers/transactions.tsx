@@ -13,8 +13,8 @@ import handleError from '../../scripts/errors'
 
 export default function Transactions() {
   const [provider, setProvider] = useState<boolean>(false)
+  const [lockWallet, setLockWallet] = useState<boolean>(false)
   const [targetWallet, setTargetWallet] = useState<string>('')
-  const walletAddress = useRef<HTMLInputElement>(null)
 
   async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
     try {
@@ -28,7 +28,28 @@ export default function Transactions() {
       throw error
     }
   }
-  connectMetaMask()
+
+  function handleTargetWallet(e: React.ChangeEvent<HTMLInputElement>) {
+    const address = e.target.value
+    setTargetWallet(address)
+  }
+
+  function handleResetTargetButton() {
+    setTargetWallet('')
+    setLockWallet(false)
+  }
+
+  function handleSetTargetButton() {
+    if (lockWallet === false) {
+      setLockWallet(true)
+    } else {
+      setLockWallet(false)
+    }
+  }
+
+  useEffect(() => {
+    connectMetaMask()
+  }, [])
 
   return (
     <>
@@ -38,15 +59,19 @@ export default function Transactions() {
         <button onClick={connectMetaMask}>Retry</button>
       </section>
       <section>
-        <form>
-          <label>Target Wallet</label>
-          <input
-            onChange={(e) => setTargetWallet(e.target.value)}
-            type='text'
-          />
-          <button>Set</button>
-          <button type='reset'>Clear</button>
-        </form>
+        <label>Target Wallet</label>
+        <input
+          value={targetWallet}
+          onChange={handleTargetWallet}
+          type='text'
+          disabled={lockWallet}
+        />
+        <button onClick={handleSetTargetButton} disabled={lockWallet}>
+          Set
+        </button>
+        <button type='reset' onClick={handleResetTargetButton}>
+          Clear
+        </button>
       </section>
     </>
   )
