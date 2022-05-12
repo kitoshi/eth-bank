@@ -10,19 +10,22 @@ import {
 import { ethers } from 'ethers'
 import loadProvider from '../../services/provider'
 import handleError from '../../scripts/errors'
+import CurrencyTransaction from './currency_transactions'
 
-export default function Transactions() {
-  const [provider, setProvider] = useState<boolean>(false)
+export default function WalletTransactions() {
+  const [providerConnection, setProviderConnection] = useState<boolean>(false)
+  const [provider, setProvider] = useState<any>()
   const [lockWallet, setLockWallet] = useState<boolean>(false)
   const [targetWallet, setTargetWallet] = useState<string>('')
 
   async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
     try {
       const connectMetaMask = await loadProvider()
-      setProvider(true)
+      setProviderConnection(true)
+      setProvider(connectMetaMask)
       return connectMetaMask
     } catch (error) {
-      setProvider(false)
+      setProviderConnection(false)
       window.open('https://metamask.io/', '_blank', 'popup')
       handleError(error)
       throw error
@@ -53,9 +56,11 @@ export default function Transactions() {
 
   return (
     <>
-      <section style={provider ? { display: 'none' } : { display: 'block' }}>
+      <section
+        style={providerConnection ? { display: 'none' } : { display: 'block' }}
+      >
         <p>Please Sign in on MetaMask</p>
-        <p>Connection is {provider ? 'true' : 'false'}</p>
+        <p>Connection is {providerConnection ? 'true' : 'false'}</p>
         <button onClick={connectMetaMask}>Retry</button>
       </section>
       <section>
@@ -73,6 +78,7 @@ export default function Transactions() {
           Clear
         </button>
       </section>
+      <CurrencyTransaction provider={provider} />
     </>
   )
 }
