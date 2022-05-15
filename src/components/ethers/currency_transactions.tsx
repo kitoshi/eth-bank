@@ -1,55 +1,37 @@
 import { ethers } from 'ethers'
-import {
-  useEffect,
-  useState
-} from 'react'
+import { useEffect, useState } from 'react'
 import DaiContract from '../../contracts/dai'
 import USDCContract from '../../contracts/usdc'
 
-interface CurrencyTransactionProps<T> {
-   
+interface CurrencyTransactionProps {
+  provider?: ethers.providers.Web3Provider
 }
- 
-export default function CurrencyTransaction(props: CurrencyTransactionProps) {
-  const [provider, setProvider] = useState<any>([])
-  const [loaded, setLoaded] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (props.provider === undefined) {
+export default function CurrencyTransaction(props: CurrencyTransactionProps) {
+  const [contract, setContract] = useState<ethers.Contract[]>([])
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect((): void => {
+    if (!props.provider) {
       console.log('nothing')
       setLoaded(false)
     } else {
       console.log('connected')
-      setProvider([DaiContract(props.provider), USDCContract(props.provider)])
-
+      setContract([DaiContract(props.provider), USDCContract(props.provider)])
       setLoaded(true)
     }
   }, [props.provider])
 
   async function tokenAttributeGeneration(): Promise<string> {
-    const tokenName = await provider[0].name()
+    const tokenName: string = await contract[0].name()
     return tokenName
-  }
-
-  const listItem = async (): Promise<JSX.Element> => {
-    if (loaded === false) {
-      return (
-        <>
-          <li>loading</li>
-        </>
-      )
-    } else {
-      return (
-        <>
-          <li>typescript hell</li>
-        </>
-      )
-    }
   }
 
   return (
     <>
-      <ul>{listItem}</ul>
+      <ul>
+        <li>{loaded ? 'typescript hell' : 'loading'}</li>
+      </ul>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
-
-export default function USDCContract(provider: ethers.providers.Web3Provider) {
+export default function USDCContract(
+  provider: ethers.providers.Web3Provider
+): ethers.Contract {
   const USDCAbi = [
     // Some details about the token
     'function name() view returns (string)',

@@ -1,22 +1,14 @@
-import {
-  useEffect,
-  useState,
-  EffectCallback,
-  useRef,
-  useContext,
-  useCallback,
-  useLayoutEffect
-} from 'react'
+import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import loadProvider from '../../services/provider'
 import handleError from '../../scripts/errors'
 import CurrencyTransaction from './currency_transactions'
 
-export default function WalletTransactions() {
-  const [providerConnection, setProviderConnection] = useState<boolean>(false)
-  const [provider, setProvider] = useState<any>()
-  const [lockWallet, setLockWallet] = useState<boolean>(false)
-  const [targetWallet, setTargetWallet] = useState<string>('')
+export default function WalletTransactions(): JSX.Element {
+  const [providerConnection, setProviderConnection] = useState(false)
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+  const [lockWallet, setLockWallet] = useState(false)
+  const [targetWallet, setTargetWallet] = useState('')
 
   async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
     try {
@@ -32,25 +24,25 @@ export default function WalletTransactions() {
     }
   }
 
-  function handleTargetWallet(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleTargetWallet(e: React.ChangeEvent<HTMLInputElement>): void {
     const address = e.target.value
     setTargetWallet(address)
   }
 
-  function handleResetTargetButton() {
+  function handleResetTargetButton(): void {
     setTargetWallet('')
     setLockWallet(false)
   }
 
-  function handleSetTargetButton() {
-    if (lockWallet === false) {
+  function handleSetTargetButton(): void {
+    if (!lockWallet) {
       setLockWallet(true)
     } else {
       setLockWallet(false)
     }
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     connectMetaMask()
   }, [])
 

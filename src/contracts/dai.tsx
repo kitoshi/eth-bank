@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-export default function DaiContract(provider: ethers.providers.Web3Provider) {
+export default function DaiContract(provider: ethers.providers.Web3Provider): ethers.Contract {
   const daiAbi = [
     // Some details about the token
     'function name() view returns (string)',
