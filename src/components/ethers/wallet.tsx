@@ -2,6 +2,7 @@ import { useEffect, useState, EffectCallback, useRef } from 'react'
 import { ethers } from 'ethers'
 
 export default function Wallet() {
+  // this is me avoiding typescript and seeing what is possible with no plan
   const [metaBalance, updateMetaBalance] = useState<string>()
   const [daiBalance, updateDaiBalance] = useState<string>()
   const [USDCBalance, updateUSDCBalance] = useState<string>()
