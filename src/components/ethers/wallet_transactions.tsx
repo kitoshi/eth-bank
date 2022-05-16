@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 import loadProvider from '../../services/provider'
 import handleError from '../../scripts/errors'
 import CurrencyTransaction from './currency_transactions'
+import styles from './wallet_transactions.module.css'
 
 export default function WalletTransactions(): JSX.Element {
   const [providerConnection, setProviderConnection] = useState(false)
@@ -53,12 +54,13 @@ export default function WalletTransactions(): JSX.Element {
     <>
       <section
         style={providerConnection ? { display: 'none' } : { display: 'block' }}
+        className={styles.section}
       >
         <p>Please Sign in on MetaMask</p>
         <p>Connection is {providerConnection ? 'true' : 'false'}</p>
         <button onClick={connectMetaMask}>Retry</button>
       </section>
-      <section>
+      <section className={styles.section}>
         <label>Target Wallet</label>
         <input
           value={targetWallet}
@@ -73,7 +75,7 @@ export default function WalletTransactions(): JSX.Element {
           Clear
         </button>
       </section>
-      <CurrencyTransaction provider={provider} signer={signer}/>
+      <CurrencyTransaction provider={provider} signer={signer} />
     </>
   )
 }

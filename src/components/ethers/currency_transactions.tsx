@@ -38,11 +38,10 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
       decimalUnits[index]
     )
     console.log(signer)
-
     const address = await signer.getAddress()
-    const allowanceBalance: string = ethers.utils.formatUnits(
+    /* const allowanceBalance: string = ethers.utils.formatUnits(
       await provider.allowance(provider.address, address)
-    )
+    ) */
     console.log(tokenBalance)
     console.log(tokenName)
     return {
@@ -57,6 +56,9 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
       console.log('nothing')
       setLoaded(false)
     } else {
+      if (!props.signer) {
+        console.log('loading signer')
+      }
       console.log('connected')
       setContract([DaiContract(props.provider), USDCContract(props.provider)])
       setSigner(props.signer)
@@ -69,14 +71,18 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
       try {
         const tokenAttributesList = []
         for (const token of contract) {
-          const tokenAttributes = await tokenAttributeGeneration(
-            token,
-            contract.indexOf(token),
-            // signer does not like undefined
-            signer
-          )
-          console.log(tokenAttributes)
-          tokenAttributesList.push(tokenAttributes)
+          if (signer === undefined) {
+            console.log('signer loading')
+          } else {
+            const tokenAttributes = await tokenAttributeGeneration(
+              token,
+              contract.indexOf(token),
+              // signer does not like undefined
+              signer
+            )
+            console.log(tokenAttributes)
+            tokenAttributesList.push(tokenAttributes)
+          }
         }
         setAttributes(tokenAttributesList)
       } catch (err) {

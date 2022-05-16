@@ -1,12 +1,11 @@
 import React from 'react'
-import './App.css'
-import Wallet from './components/ethers/wallet'
 import Transactions from './components/ethers/wallet_transactions'
+import styles from './App.module.css'
 function App() {
   return (
-    <div className='App'>
+    <div className={styles.div}>
       <header className='App-header'>
-        <h1>Transact DAI and USDC</h1>
+        <h1 className={styles.h1}>Transact DAI and USDC</h1>
       </header>
       <main>
         <Transactions />
