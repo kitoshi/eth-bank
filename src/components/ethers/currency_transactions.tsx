@@ -39,15 +39,18 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     )
     console.log(signer)
     const address = await signer.getAddress()
-    /* const allowanceBalance: string = ethers.utils.formatUnits(
-      await provider.allowance(provider.address, address)
-    ) */
+    console.log(address)
+    const allowance = await provider.allowance(provider.address, address)
+    const allowanceBalance = ethers.utils.formatUnits(
+      allowance,
+      decimalUnits[index]
+    )
     console.log(tokenBalance)
     console.log(tokenName)
     return {
       name: tokenName,
       balance: tokenBalance,
-      allowance: '0'
+      allowance: allowanceBalance
     }
   }
 
@@ -95,7 +98,15 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
   return (
     <>
       <ul className={styles.ul}>
-        {loaded ? <CurrencyList attributes={attributes} /> : 'loading'}
+        {loaded ? (
+          <CurrencyList
+            attributes={attributes}
+            provider={props.provider}
+            signer={props.signer}
+          />
+        ) : (
+          'loading'
+        )}
       </ul>
     </>
   )

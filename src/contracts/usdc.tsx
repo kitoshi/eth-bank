@@ -13,6 +13,15 @@ export default function USDCContract(
     // Send some of your tokens to someone else
     'function transfer(address to, uint amount)',
 
+    // See allowance from ERC20 contract
+    'function allowance(address owner, address spender) private view returns (uint)',
+
+    // Allow spender to withdraw from account up to the tokens amount
+    'function approve(adress spender, uint tokens) public returns (bool success)',
+
+    // Allow contracts to send tokens on your behalf
+    'function transferFrom(address from, address to, uint tokens) public returns (bool success)',
+
     // An event triggered whenever anyone transfers to someone else
     'event Transfer(address indexed from, address indexed to, uint amount)'
   ]
