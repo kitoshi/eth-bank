@@ -1,7 +1,7 @@
 import { tokenAttributes } from './currency_transactions'
 import styles from './currency_list.module.css'
 import { ethers, providers } from 'ethers'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import handleError from '../../scripts/errors'
 
 interface CurrencyListProps {
@@ -13,20 +13,51 @@ interface CurrencyListProps {
 }
 
 export default function CurrencyList(props: CurrencyListProps) {
-  async function allowanceToken(index: number): Promise<boolean> {
-    if (!props.provider) {
-      console.log(props.provider)
-    } else {
-      try {
-        const reply = props.provider[index].allowance(
-          props.address,
-          props.targetWallet
-        )
-        return reply
-      } catch (error) {
-        handleError(error)
+  const [amount, setAmount] = useState('')
+  async function allowanceToken(
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) {
+    try {
+      e.preventDefault()
+      if (!props.provider) {
+        console.log('undefined allowance')
+      } else {
+        props.provider[index].allowance(props.address, props.targetWallet)
       }
+    } catch (error) {
+      handleError(error)
+      throw error
     }
+  }
+
+  async function transferToken(
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number,
+    amount: string
+  ) {
+    try {
+      e.preventDefault()
+      if (!props.provider) {
+        console.log('undefined allowance')
+      } else {
+        props.provider[index].transferFrom(
+          props.address,
+          props.targetWallet,
+          amount
+        )
+      }
+    } catch (error) {
+      handleError(error)
+      throw error
+    }
+  }
+
+  function handleAmountInputChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    const value = e.target.value
+    setAmount(value)
   }
 
   const listItems = props.attributes.map((attribute, index) => (
@@ -37,12 +68,20 @@ export default function CurrencyList(props: CurrencyListProps) {
       <h5>Allowance: {attribute.allowance}</h5>
       <label className={styles.label}>
         Amount:
-        <input></input>
+        <input onChange={handleAmountInputChange} value={amount} />
       </label>
-      <button className={styles.button} onClick={allowanceToken(index)}>
+      <button
+        className={styles.button}
+        onClick={(e) => allowanceToken(e, index)}
+      >
         Approve
       </button>
-      <button className={styles.button}>Transfer</button>
+      <button
+        className={styles.button}
+        onClick={(e) => transferToken(e, index, amount)}
+      >
+        Transfer
+      </button>
     </li>
   ))
   return <>{listItems}</>
