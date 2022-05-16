@@ -7,12 +7,15 @@ import CurrencyTransaction from './currency_transactions'
 export default function WalletTransactions(): JSX.Element {
   const [providerConnection, setProviderConnection] = useState(false)
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+  const [signer, setSigner] = useState<ethers.Signer>()
   const [lockWallet, setLockWallet] = useState(false)
   const [targetWallet, setTargetWallet] = useState('')
 
   async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
     try {
       const connectMetaMask = await loadProvider()
+      const signer = connectMetaMask.getSigner()
+      setSigner(signer)
       setProviderConnection(true)
       setProvider(connectMetaMask)
       return connectMetaMask
@@ -70,7 +73,7 @@ export default function WalletTransactions(): JSX.Element {
           Clear
         </button>
       </section>
-      <CurrencyTransaction provider={provider} />
+      <CurrencyTransaction provider={provider} signer={signer}/>
     </>
   )
 }

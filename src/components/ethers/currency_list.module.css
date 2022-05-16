@@ -1,0 +1,12 @@
+.li {
+  padding: 1%;
+}
+
+.button {
+  width: 45%;
+}
+
+.label {
+  margin-bottom: 15px;
+  display: inherit;
+}
