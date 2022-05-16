@@ -9,6 +9,7 @@ import styles from './currency_transactions.module.css'
 interface CurrencyTransactionProps {
   provider?: ethers.providers.Web3Provider
   signer?: ethers.Signer
+  targetWallet: string
 }
 
 export interface tokenAttributes {
@@ -22,6 +23,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
   const [signer, setSigner] = useState<ethers.Signer>()
   const [loaded, setLoaded] = useState(false)
   const [attributes, setAttributes] = useState<tokenAttributes[]>([])
+  const [address, setAddress] = useState('')
 
   async function tokenAttributeGeneration(
     item: ethers.Contract,
@@ -39,6 +41,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     )
     console.log(signer)
     const address = await signer.getAddress()
+    setAddress(address)
     console.log(address)
     const allowance = await provider.allowance(provider.address, address)
     const allowanceBalance = ethers.utils.formatUnits(
@@ -101,8 +104,10 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
         {loaded ? (
           <CurrencyList
             attributes={attributes}
-            provider={props.provider}
+            provider={contract}
             signer={props.signer}
+            targetWallet={props.targetWallet}
+            address={address}
           />
         ) : (
           'loading'

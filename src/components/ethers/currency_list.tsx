@@ -1,15 +1,35 @@
 import { tokenAttributes } from './currency_transactions'
 import styles from './currency_list.module.css'
-import { ethers } from 'ethers'
+import { ethers, providers } from 'ethers'
+import { useEffect } from 'react'
+import handleError from '../../scripts/errors'
 
 interface CurrencyListProps {
   attributes: tokenAttributes[]
-  provider?: ethers.providers.Web3Provider
+  provider?: ethers.Contract[]
   signer?: ethers.Signer
+  targetWallet: string
+  address: string
 }
 
 export default function CurrencyList(props: CurrencyListProps) {
-  const listItems = props.attributes.map((attribute) => (
+  async function allowanceToken(index: number): Promise<boolean> {
+    if (!props.provider) {
+      console.log(props.provider)
+    } else {
+      try {
+        const reply = props.provider[index].allowance(
+          props.address,
+          props.targetWallet
+        )
+        return reply
+      } catch (error) {
+        handleError(error)
+      }
+    }
+  }
+
+  const listItems = props.attributes.map((attribute, index) => (
     <li key={attribute.name} className={styles.li}>
       <h4 className={styles.h4}>
         {attribute.name}: {parseFloat(attribute.balance).toFixed(2)}
@@ -19,7 +39,9 @@ export default function CurrencyList(props: CurrencyListProps) {
         Amount:
         <input></input>
       </label>
-      <button className={styles.button}>Approve</button>
+      <button className={styles.button} onClick={allowanceToken(index)}>
+        Approve
+      </button>
       <button className={styles.button}>Transfer</button>
     </li>
   ))
