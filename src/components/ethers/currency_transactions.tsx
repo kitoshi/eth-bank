@@ -72,6 +72,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
           const tokenAttributes = await tokenAttributeGeneration(
             token,
             contract.indexOf(token),
+            // signer does not like undefined
             signer
           )
           console.log(tokenAttributes)
