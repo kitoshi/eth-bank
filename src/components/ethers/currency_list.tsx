@@ -13,7 +13,10 @@ interface CurrencyListProps {
 }
 
 export default function CurrencyList(props: CurrencyListProps) {
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState<{ name: string; value: string }[]>(
+    Array(props.provider?.length).fill(0)
+  )
+
   async function allowanceToken(
     e: React.MouseEvent<HTMLButtonElement>,
     index: number
@@ -41,10 +44,11 @@ export default function CurrencyList(props: CurrencyListProps) {
       if (!props.provider || !props.signer) {
         console.log('undefined transfer')
       } else {
+        const decimalUnits = [18, 6]
         const withSigner = props.provider[index].connect(props.signer)
         withSigner.transfer(
           props.targetWallet,
-          ethers.utils.parseUnits('1.0', 18)
+          ethers.utils.parseUnits(amount[index], decimalUnits[index])
         )
       }
     } catch (error) {
@@ -56,19 +60,25 @@ export default function CurrencyList(props: CurrencyListProps) {
   function handleAmountInputChange(
     e: React.ChangeEvent<HTMLInputElement>
   ): void {
-    const value = e.target.value
-    setAmount(value)
+    // fix here
+    const { name, value } = e.target
+    const updatedAmounts = [...amount, { name, value }]
+    setAmount({ name, value })
   }
 
   const listItems = props.attributes.map((attribute, index) => (
     <li key={attribute.name} className={styles.li}>
       <h4 className={styles.h4}>
-        {attribute.name}: {parseFloat(attribute.balance).toFixed(2)}
+        {attribute.name}: {parseFloat(attribute.balance).toFixed(4)}
       </h4>
       <h5>Allowance: {attribute.allowance}</h5>
       <label className={styles.label}>
         Amount:
-        <input onChange={handleAmountInputChange} value={amount} />
+        <input
+          onChange={handleAmountInputChange}
+          value={amount[index].value}
+          name={attribute.name}
+        />
       </label>
       <button
         className={styles.button}
@@ -78,7 +88,7 @@ export default function CurrencyList(props: CurrencyListProps) {
       </button>
       <button
         className={styles.button}
-        onClick={(e) => transferToken(e, index, amount)}
+        onClick={(e) => transferToken(e, index, amount[index].value)}
       >
         Transfer
       </button>
