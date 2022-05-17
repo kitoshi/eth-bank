@@ -17,7 +17,7 @@ export default function DaiContract(
     'function allowance(address owner, address spender) private view returns (uint)',
 
     // Allow spender to withdraw from account up to the tokens amount
-    'function approve(adress spender, uint amount) public returns (bool success)',
+    'function approve(address spender, uint amount) public returns (bool success)',
 
     // Allow contracts to send tokens on your behalf
     'function transferFrom(address from, address to, uint amount) public returns (bool success)',

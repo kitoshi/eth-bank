@@ -38,13 +38,13 @@ export default function CurrencyList(props: CurrencyListProps) {
   ) {
     try {
       e.preventDefault()
-      if (!props.provider) {
-        console.log('undefined allowance')
+      if (!props.provider || !props.signer) {
+        console.log('undefined transfer')
       } else {
-        props.provider[index].transferFrom(
-          props.address,
+        const withSigner = props.provider[index].connect(props.signer)
+        withSigner.transfer(
           props.targetWallet,
-          amount
+          ethers.utils.parseUnits('1.0', 18)
         )
       }
     } catch (error) {
