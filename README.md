@@ -1,11 +1,6 @@
 # eth-bank
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 <!-- PROJECT LOGO -->
 <br />
@@ -137,6 +132,14 @@ Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/e
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+
+<!-- [![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 [contributors-shield]: https://img.shields.io/github/contributors/kitoshi/eth-bank.svg?style=for-the-badge
 [contributors-url]: https://github.com/kitoshi/eth-bank/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/kitoshi/eth-bank.svg?style=for-the-badge
@@ -148,4 +151,4 @@ Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/e
 [license-shield]: https://img.shields.io/github/license/kitoshi/eth-bank.svg?style=for-the-badge
 [license-url]: https://github.com/kitoshi/eth-bank/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/robert-k-charlton/
+[linkedin-url]: https://www.linkedin.com/in/robert-k-charlton/  -->
