@@ -17,7 +17,7 @@
     ERC20 token simple ui to Transact and Approve using Metamask
     <br />
     <br />
-    <a href="https://tradingfever.com">View Demo</a>
+    <a href="https://master.d1bn868c3ra53h.amplifyapp.com/">View Demo</a>
     ·
     <a href="https://github.com/kitoshi/eth-bank//issues">Report Bug</a>
     ·
