@@ -18,7 +18,7 @@ export default function CurrencyList(props: CurrencyListProps) {
     Array(props.provider?.length).fill(['name', '0'])
   )
 
-  async function handleTransaction(
+  async function handleTransactionButton(
     e: React.MouseEvent<HTMLButtonElement>,
     index: number,
     amount: string
@@ -50,7 +50,7 @@ export default function CurrencyList(props: CurrencyListProps) {
   function handleAmountInputChange(
     e: React.ChangeEvent<HTMLInputElement>
   ): void {
-    // scaleable input fields
+    // scalable input fields
     const updatedAmounts = [...amount]
     updatedAmounts.splice(parseInt(e.target.id), 1, [
       e.target.name,
@@ -60,6 +60,7 @@ export default function CurrencyList(props: CurrencyListProps) {
   }
 
   const listItems = props.attributes.map((attribute, index) => (
+    // each token passed through here
     <li key={attribute.name} className={styles.li}>
       <h4 className={styles.h4}>
         {attribute.name}: {parseFloat(attribute.balance).toFixed(4)}
@@ -76,7 +77,7 @@ export default function CurrencyList(props: CurrencyListProps) {
       </label>
       <button
         className={styles.button}
-        onClick={(e) => handleTransaction(e, index, amount[index][1])}
+        onClick={(e) => handleTransactionButton(e, index, amount[index][1])}
         name='approve'
         disabled={props.lockWallet === false}
       >
@@ -84,7 +85,7 @@ export default function CurrencyList(props: CurrencyListProps) {
       </button>
       <button
         className={styles.button}
-        onClick={(e) => handleTransaction(e, index, amount[index][1])}
+        onClick={(e) => handleTransactionButton(e, index, amount[index][1])}
         name='transfer'
         disabled={props.lockWallet === false}
       >

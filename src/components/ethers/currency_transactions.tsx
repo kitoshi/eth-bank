@@ -66,12 +66,9 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
   }
 
   useEffect((): void => {
-    if (!props.provider) {
+    if (!props.provider || !props.signer) {
       setLoaded(false)
     } else {
-      if (!props.signer) {
-        // signer is loading
-      }
       setContract([DaiContract(props.provider), USDCContract(props.provider)])
       setSigner(props.signer)
       setLoaded(true)

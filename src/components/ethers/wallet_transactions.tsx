@@ -57,10 +57,13 @@ export default function WalletTransactions(): JSX.Element {
         className={styles.section}
       >
         <p>Please Sign in on MetaMask</p>
-        <p>Connection is {providerConnection ? 'true' : 'false'}</p>
+        <p>Connection is {providerConnection ? 'true' : 'broken.'}</p>
         <button onClick={connectMetaMask}>Retry</button>
       </section>
-      <section className={styles.section}>
+      <section
+        className={styles.section}
+        style={providerConnection ? { display: 'block' } : { display: 'none' }}
+      >
         <label>Target Wallet</label>
         <input
           value={targetWallet}
