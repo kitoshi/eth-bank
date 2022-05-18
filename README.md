@@ -50,7 +50,7 @@
 
 ## About The Project
 
-<p>Pending</p>
+<p>A simple UI that connects to a MetaMask wallet. You can specify a target address to transfer ERC-20 Tokens: DAI USDC or approve for allowance. Requires confirmation in MetaMask browser extension.</p>
 
 
 ### Built With
@@ -88,7 +88,7 @@ This is an example of how to list things you need to use the software and how to
 
 ## Usage
 
-1. Pending
+1. Input Address, Confirm with Set. Transfer tokens or Approve for allowance. Confirm in MetaMask browser extension.
 
 <!-- ROADMAP -->
 
