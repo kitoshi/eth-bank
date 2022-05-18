@@ -1,4 +1,4 @@
-# auctionapi
+# eth-bank
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -19,7 +19,7 @@
     <br />
     <a href="https://master.d1bn868c3ra53h.amplifyapp.com/">View Demo</a>
     ·
-    <a href="https://github.com/kitoshi/eth-bank//issues">Report Bug</a>
+    <a href="https://github.com/kitoshi/eth-bank/issues">Report Bug</a>
     ·
     <a href="https://github.com/kitoshi/eth-bank/issues">Request Feature</a>
   </p>
@@ -125,7 +125,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Robert K. Charlton - kitoshi.charlton@gmail.com
 
-Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/auctioncrawl)
+Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/eth-bank)
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -137,15 +137,15 @@ Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/a
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/kitoshi/auctioncrawl.svg?style=for-the-badge
-[contributors-url]: https://github.com/kitoshi/auctioncrawl/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/kitoshi/auctioncrawl.svg?style=for-the-badge
-[forks-url]: https://github.com/kitoshi/auctioncrawl/network/members
-[stars-shield]: https://img.shields.io/github/stars/kitoshi/auctioncrawl.svg?style=for-the-badge
-[stars-url]: https://github.com/kitoshi/auctioncrawl/stargazers
-[issues-shield]: https://img.shields.io/github/issues/kitoshi/auctioncrawl.svg?style=for-the-badge
-[issues-url]: https://github.com/kitoshi/auctioncrawl/issues
-[license-shield]: https://img.shields.io/github/license/kitoshi/auctioncrawl.svg?style=for-the-badge
-[license-url]: https://github.com/kitoshi/auctioncrawl/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/kitoshi/eth-bank.svg?style=for-the-badge
+[contributors-url]: https://github.com/kitoshi/eth-bank/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kitoshi/eth-bank.svg?style=for-the-badge
+[forks-url]: https://github.com/kitoshi/eth-bank/network/members
+[stars-shield]: https://img.shields.io/github/stars/kitoshi/eth-bank.svg?style=for-the-badge
+[stars-url]: https://github.com/kitoshi/eth-bank/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kitoshi/eth-bank.svg?style=for-the-badge
+[issues-url]: https://github.com/kitoshi/eth-bank/issues
+[license-shield]: https://img.shields.io/github/license/kitoshi/eth-bank.svg?style=for-the-badge
+[license-url]: https://github.com/kitoshi/eth-bank/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/robert-k-charlton/
