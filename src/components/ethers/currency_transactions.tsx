@@ -35,6 +35,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     console.log(item)
     const provider = item
     const tokenName: string = await provider.name()
+    // balance of metamask wallet address
     const tokenBalance: string = ethers.utils.formatUnits(
       await provider.balanceOf(provider.address),
       decimalUnits[index]
@@ -43,7 +44,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     const address = await signer.getAddress()
     setAddress(address)
     console.log(address)
-    const allowance = await provider.allowance(provider.address, address)
+    const allowance = await provider.allowance(address, provider.address)
     const allowanceBalance = ethers.utils.formatUnits(
       allowance,
       decimalUnits[index]

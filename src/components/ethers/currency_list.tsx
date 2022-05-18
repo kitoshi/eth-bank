@@ -1,7 +1,7 @@
 import { tokenAttributes } from './currency_transactions'
 import styles from './currency_list.module.css'
-import { ethers, providers } from 'ethers'
-import { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
+import { useState } from 'react'
 import handleError from '../../scripts/errors'
 
 interface CurrencyListProps {
@@ -13,28 +13,11 @@ interface CurrencyListProps {
 }
 
 export default function CurrencyList(props: CurrencyListProps) {
-  const [amount, setAmount] = useState<{ name: string; value: string }[]>(
-    Array(props.provider?.length).fill(0)
+  const [amount, setAmount] = useState<[string, string][]>(
+    Array(props.provider?.length).fill(['name', '0'])
   )
 
-  async function allowanceToken(
-    e: React.MouseEvent<HTMLButtonElement>,
-    index: number
-  ) {
-    try {
-      e.preventDefault()
-      if (!props.provider) {
-        console.log('undefined allowance')
-      } else {
-        props.provider[index].allowance(props.address, props.targetWallet)
-      }
-    } catch (error) {
-      handleError(error)
-      throw error
-    }
-  }
-
-  async function transferToken(
+  async function handleTransaction(
     e: React.MouseEvent<HTMLButtonElement>,
     index: number,
     amount: string
@@ -46,10 +29,17 @@ export default function CurrencyList(props: CurrencyListProps) {
       } else {
         const decimalUnits = [18, 6]
         const withSigner = props.provider[index].connect(props.signer)
-        withSigner.transfer(
-          props.targetWallet,
-          ethers.utils.parseUnits(amount[index], decimalUnits[index])
-        )
+        if (e.currentTarget.name === 'transfer') {
+          withSigner.transfer(
+            props.targetWallet,
+            ethers.utils.parseUnits(amount, decimalUnits[index])
+          )
+        } else {
+          withSigner.approve(
+            props.targetWallet,
+            ethers.utils.parseUnits(amount, decimalUnits[index])
+          )
+        }
       }
     } catch (error) {
       handleError(error)
@@ -60,10 +50,17 @@ export default function CurrencyList(props: CurrencyListProps) {
   function handleAmountInputChange(
     e: React.ChangeEvent<HTMLInputElement>
   ): void {
-    // fix here
-    const { name, value } = e.target
-    const updatedAmounts = [...amount, { name, value }]
-    setAmount({ name, value })
+    // scaleable input fields
+    const updatedAmounts = [...amount]
+    console.log('updated amounts')
+    console.log(updatedAmounts)
+    console.log(e.target.id)
+    updatedAmounts.splice(parseInt(e.target.id), 1, [
+      e.target.name,
+      e.target.value
+    ])
+    console.log(updatedAmounts)
+    setAmount(updatedAmounts)
   }
 
   const listItems = props.attributes.map((attribute, index) => (
@@ -76,19 +73,22 @@ export default function CurrencyList(props: CurrencyListProps) {
         Amount:
         <input
           onChange={handleAmountInputChange}
-          value={amount[index].value}
+          value={amount[index][1]}
+          id={index.toString()}
           name={attribute.name}
         />
       </label>
       <button
         className={styles.button}
-        onClick={(e) => allowanceToken(e, index)}
+        onClick={(e) => handleTransaction(e, index, amount[index][1])}
+        name='approve'
       >
         Approve
       </button>
       <button
         className={styles.button}
-        onClick={(e) => transferToken(e, index, amount[index].value)}
+        onClick={(e) => handleTransaction(e, index, amount[index][1])}
+        name='transfer'
       >
         Transfer
       </button>
