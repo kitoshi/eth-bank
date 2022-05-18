@@ -75,7 +75,12 @@ export default function WalletTransactions(): JSX.Element {
           Clear
         </button>
       </section>
-      <CurrencyTransaction provider={provider} signer={signer} targetWallet={targetWallet}/>
+      <CurrencyTransaction
+        provider={provider}
+        signer={signer}
+        targetWallet={targetWallet}
+        lockWallet={lockWallet}
+      />
     </>
   )
 }

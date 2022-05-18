@@ -14,7 +14,7 @@ export default function DaiContract(
     'function transfer(address to, uint amount)',
 
     // See allowance from ERC20 contract
-    'function allowance(address owner, address spender) private view returns (uint)',
+    'function allowance(address owner, address spender) view returns (uint)',
 
     // Allow spender to withdraw from account up to the tokens amount
     'function approve(address spender, uint amount) public returns (bool success)',

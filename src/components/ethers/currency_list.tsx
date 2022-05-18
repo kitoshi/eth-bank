@@ -10,6 +10,7 @@ interface CurrencyListProps {
   signer?: ethers.Signer
   targetWallet: string
   address: string
+  lockWallet: boolean
 }
 
 export default function CurrencyList(props: CurrencyListProps) {
@@ -23,7 +24,6 @@ export default function CurrencyList(props: CurrencyListProps) {
     amount: string
   ) {
     try {
-      e.preventDefault()
       if (!props.provider || !props.signer) {
         console.log('undefined transfer')
       } else {
@@ -52,14 +52,10 @@ export default function CurrencyList(props: CurrencyListProps) {
   ): void {
     // scaleable input fields
     const updatedAmounts = [...amount]
-    console.log('updated amounts')
-    console.log(updatedAmounts)
-    console.log(e.target.id)
     updatedAmounts.splice(parseInt(e.target.id), 1, [
       e.target.name,
       e.target.value
     ])
-    console.log(updatedAmounts)
     setAmount(updatedAmounts)
   }
 
@@ -82,6 +78,7 @@ export default function CurrencyList(props: CurrencyListProps) {
         className={styles.button}
         onClick={(e) => handleTransaction(e, index, amount[index][1])}
         name='approve'
+        disabled={props.lockWallet === false}
       >
         Approve
       </button>
@@ -89,6 +86,7 @@ export default function CurrencyList(props: CurrencyListProps) {
         className={styles.button}
         onClick={(e) => handleTransaction(e, index, amount[index][1])}
         name='transfer'
+        disabled={props.lockWallet === false}
       >
         Transfer
       </button>
