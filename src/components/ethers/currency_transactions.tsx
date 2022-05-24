@@ -32,16 +32,16 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     signer: ethers.Signer,
     targetWallet: string
   ): Promise<tokenAttributes> {
-    const decimalUnits = [21, 13]
+    const decimalUnits = [18, 6]
     // have to look at the contract to find out decimal points for ERC-20 contract bigint
     const provider = item
     const tokenName: string = await provider.name()
     // balance of metamask wallet address
+    const address = await signer.getAddress()
     const tokenBalance: string = ethers.utils.formatUnits(
-      await provider.balanceOf(provider.address),
+      await provider.balanceOf(address),
       decimalUnits[index]
     )
-    const address = await signer.getAddress()
     setAddress(address)
     // default value with empty input field
     if (targetWallet === '') {
