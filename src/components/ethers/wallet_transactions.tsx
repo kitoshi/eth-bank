@@ -22,7 +22,6 @@ export default function WalletTransactions(): JSX.Element {
       return connectMetaMask
     } catch (error) {
       setProviderConnection(false)
-      window.open('https://metamask.io/', '_blank', 'popup')
       handleError(error)
       throw error
     }
@@ -56,7 +55,7 @@ export default function WalletTransactions(): JSX.Element {
         style={providerConnection ? { display: 'none' } : { display: 'block' }}
         className={styles.section}
       >
-        <p>Please Sign in on MetaMask</p>
+        <p>Please Install MetaMask</p>
         <p>Connection is {providerConnection ? 'true' : 'broken.'}</p>
         <button onClick={connectMetaMask}>Retry</button>
       </section>
