@@ -49,6 +49,8 @@ export default function WalletTransactions(): JSX.Element {
     connectMetaMask()
   }, [])
 
+
+
   return (
     <>
       <section

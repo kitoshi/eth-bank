@@ -3,6 +3,8 @@ export default function USDCContract(
   provider: ethers.providers.Web3Provider
 ): ethers.Contract {
   const USDCAbi = [
+    // constant
+    'function decimals() view returns (uint8)',
     // Some details about the token
     'function name() view returns (string)',
     'function symbol() view returns (string)',

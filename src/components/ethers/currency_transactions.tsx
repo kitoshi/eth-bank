@@ -5,19 +5,10 @@ import USDCContract from '../../contracts/usdc'
 import handleError from '../../scripts/errors'
 import CurrencyList from './currency_list'
 import styles from './currency_transactions.module.css'
-
-interface CurrencyTransactionProps {
-  provider?: ethers.providers.Web3Provider
-  signer?: ethers.Signer
-  targetWallet: string
-  lockWallet: boolean
-}
-
-export interface tokenAttributes {
-  name: string
-  balance: string
-  allowance: string
-}
+import {
+  CurrencyTransactionProps,
+  tokenAttributes
+} from '../../@types/currency'
 
 export default function CurrencyTransaction(props: CurrencyTransactionProps) {
   const [contract, setContract] = useState<ethers.Contract[]>([])
@@ -32,16 +23,15 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     signer: ethers.Signer,
     targetWallet: string
   ): Promise<tokenAttributes> {
-    const decimalUnits = [18, 6]
-    // have to look at the contract to find out decimal points for ERC-20 contract bigint
     const provider = item
     const tokenName: string = await provider.name()
     // balance of metamask wallet address
     const address = await signer.getAddress()
     const tokenBalance: string = ethers.utils.formatUnits(
       await provider.balanceOf(address),
-      decimalUnits[index]
+      await provider.decimals()
     )
+    console.log()
     setAddress(address)
     // default value with empty input field
     if (targetWallet === '') {
@@ -55,7 +45,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
       // allowance to address provided
       const allowanceBalance = ethers.utils.formatUnits(
         allowance,
-        decimalUnits[index]
+        await provider.decimals()
       )
       return {
         name: tokenName,
