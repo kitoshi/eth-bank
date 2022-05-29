@@ -2,7 +2,16 @@ import styles from './currency_list.module.css'
 import { ethers } from 'ethers'
 import { useState } from 'react'
 import handleError from '../../scripts/errors'
-import { CurrencyListProps } from '../../@types/currency'
+import { tokenAttributes } from './currency_transactions'
+
+interface CurrencyListProps {
+  attributes: tokenAttributes[]
+  provider?: ethers.Contract[]
+  signer?: ethers.Signer
+  targetWallet: string
+  address: string
+  lockWallet: boolean
+}
 
 export default function CurrencyList(props: CurrencyListProps) {
   const [amount, setAmount] = useState<[string, string][]>(

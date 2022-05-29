@@ -5,10 +5,22 @@ import USDCContract from '../../contracts/usdc'
 import handleError from '../../scripts/errors'
 import CurrencyList from './currency_list'
 import styles from './currency_transactions.module.css'
-import {
-  CurrencyTransactionProps,
-  tokenAttributes
-} from '../../@types/currency'
+
+
+export interface CurrencyTransactionProps {
+  provider?: ethers.providers.Web3Provider
+  signer?: ethers.Signer
+  targetWallet: string
+  lockWallet: boolean
+}
+
+
+export interface tokenAttributes {
+  name: string
+  decimals: number
+  balance: string
+  allowance: string
+}
 
 export default function CurrencyTransaction(props: CurrencyTransactionProps) {
   const [contract, setContract] = useState<ethers.Contract[]>([])
