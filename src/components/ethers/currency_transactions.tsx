@@ -19,7 +19,6 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
 
   async function tokenAttributeGeneration(
     item: ethers.Contract,
-    index: number,
     signer: ethers.Signer,
     targetWallet: string
   ): Promise<tokenAttributes> {
@@ -27,28 +26,30 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
     const tokenName: string = await provider.name()
     // balance of metamask wallet address
     const address = await signer.getAddress()
+    const tokenDecimals: number = await provider.decimals()
     const tokenBalance: string = ethers.utils.formatUnits(
       await provider.balanceOf(address),
-      await provider.decimals()
+      tokenDecimals
     )
-    console.log()
     setAddress(address)
     // default value with empty input field
     if (targetWallet === '') {
       return {
         name: tokenName,
+        decimals: tokenDecimals,
         balance: tokenBalance,
         allowance: '0.0'
       }
     } else {
-      const allowance = await provider.allowance(targetWallet, provider.address)
+      const allowance = await provider.allowance(targetWallet, address)
       // allowance to address provided
       const allowanceBalance = ethers.utils.formatUnits(
         allowance,
-        await provider.decimals()
+        tokenDecimals
       )
       return {
         name: tokenName,
+        decimals: tokenDecimals,
         balance: tokenBalance,
         allowance: allowanceBalance
       }
@@ -75,7 +76,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
           } else {
             const tokenAttributes = await tokenAttributeGeneration(
               token,
-              contract.indexOf(token),
+              // update to decimal function return
               signer,
               props.targetWallet
             )

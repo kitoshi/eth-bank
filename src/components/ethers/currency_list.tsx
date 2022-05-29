@@ -2,7 +2,7 @@ import styles from './currency_list.module.css'
 import { ethers } from 'ethers'
 import { useState } from 'react'
 import handleError from '../../scripts/errors'
-import { CurrencyListProps  } from '../../@types/currency'
+import { CurrencyListProps } from '../../@types/currency'
 
 export default function CurrencyList(props: CurrencyListProps) {
   const [amount, setAmount] = useState<[string, string][]>(
@@ -12,23 +12,23 @@ export default function CurrencyList(props: CurrencyListProps) {
   async function handleTransactionButton(
     e: React.MouseEvent<HTMLButtonElement>,
     index: number,
-    amount: string
+    amount: string,
+    decimals: number
   ) {
     try {
       if (!props.provider || !props.signer) {
         console.log('undefined transfer')
       } else {
-        const decimalUnits = [18, 6]
         const withSigner = props.provider[index].connect(props.signer)
         if (e.currentTarget.name === 'transfer') {
           withSigner.transfer(
             props.targetWallet,
-            ethers.utils.parseUnits(amount, decimalUnits[index])
+            ethers.utils.parseUnits(amount, decimals)
           )
         } else {
           withSigner.approve(
             props.targetWallet,
-            ethers.utils.parseUnits(amount, decimalUnits[index])
+            ethers.utils.parseUnits(amount, decimals)
           )
         }
       }
@@ -68,7 +68,14 @@ export default function CurrencyList(props: CurrencyListProps) {
       </label>
       <button
         className={styles.button}
-        onClick={(e) => handleTransactionButton(e, index, amount[index][1])}
+        onClick={(e) =>
+          handleTransactionButton(
+            e,
+            index,
+            amount[index][1],
+            attribute.decimals
+          )
+        }
         name='approve'
         disabled={props.lockWallet === false}
       >
@@ -76,7 +83,14 @@ export default function CurrencyList(props: CurrencyListProps) {
       </button>
       <button
         className={styles.button}
-        onClick={(e) => handleTransactionButton(e, index, amount[index][1])}
+        onClick={(e) =>
+          handleTransactionButton(
+            e,
+            index,
+            amount[index][1],
+            attribute.decimals
+          )
+        }
         name='transfer'
         disabled={props.lockWallet === false}
       >

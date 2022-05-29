@@ -16,6 +16,7 @@ export interface CurrencyTransactionProps {
 
 export interface tokenAttributes {
   name: string
+  decimals: number
   balance: string
   allowance: string
 }
