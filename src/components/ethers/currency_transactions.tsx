@@ -6,14 +6,12 @@ import handleError from '../../scripts/errors'
 import CurrencyList from './currency_list'
 import styles from './currency_transactions.module.css'
 
-
 export interface CurrencyTransactionProps {
   provider?: ethers.providers.Web3Provider
   signer?: ethers.Signer
   targetWallet: string
   lockWallet: boolean
 }
-
 
 export interface tokenAttributes {
   name: string

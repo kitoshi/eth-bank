@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import loadProvider from '../../services/provider'
@@ -48,8 +49,6 @@ export default function WalletTransactions(): JSX.Element {
   useEffect((): void => {
     connectMetaMask()
   }, [])
-
-
 
   return (
     <>
