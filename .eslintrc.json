@@ -4,10 +4,9 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
-        "standard",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -22,15 +21,22 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": [
-            "error"
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
         ],
         "react/react-in-jsx-scope": "off"
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
     }
 }
