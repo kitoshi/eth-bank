@@ -1,10 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
-import loadProvider from '../../services/provider'
 import handleError from '../../scripts/errors'
 import CurrencyTransaction from './currency_transactions'
 import styles from './wallet_transactions.module.css'
+import Web3Modal from 'web3modal'
 
 export default function WalletTransactions(): JSX.Element {
   const [providerConnection, setProviderConnection] = useState(false)
@@ -13,14 +13,27 @@ export default function WalletTransactions(): JSX.Element {
   const [lockWallet, setLockWallet] = useState(false)
   const [targetWallet, setTargetWallet] = useState('')
 
+  const providerOptions = {
+    /* See Provider Options Section */
+  }
+
+  const web3Modal = new Web3Modal({
+    network: 'mainnet', // optional
+    cacheProvider: true, // optional
+    providerOptions // required
+  })
+
   async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
     try {
-      const connectMetaMask = await loadProvider()
-      const signer = connectMetaMask.getSigner()
+      const instance = await web3Modal.connect()
+      const provider = new ethers.providers.Web3Provider(instance)
+      const signer = provider.getSigner()
+      //const connectMetaMask = await loadProvider()
+      //const signer = connectMetaMask.getSigner()
       setSigner(signer)
       setProviderConnection(true)
-      setProvider(connectMetaMask)
-      return connectMetaMask
+      setProvider(provider)
+      return provider
     } catch (error) {
       setProviderConnection(false)
       handleError(error)
