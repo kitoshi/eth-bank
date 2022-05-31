@@ -1,9 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
-import loadProvider from '../../services/provider'
 import handleError from '../../scripts/errors'
 import CurrencyTransaction from './currency_transactions'
 import styles from './wallet_transactions.module.css'
+import loadProvider from '../../services/provider'
 
 export default function WalletTransactions(): JSX.Element {
   const [providerConnection, setProviderConnection] = useState(false)
@@ -16,16 +17,16 @@ export default function WalletTransactions(): JSX.Element {
 
   async function connectMetaMask(): Promise<void> {
     try {
-      const connectMetaMask = await loadProvider()
-      const signer = connectMetaMask.getSigner()
+      const provider = await loadProvider()
+      const signer = provider.getSigner()
       setSigner(signer)
       setProviderConnection(true)
-      setProviderInstance(connectMetaMask)
+      setProviderInstance(provider)
       // account listener not triggering
-      connectMetaMask.on('accountsChanged', (accounts: string[]) => {
+      provider.on('accountsChanged', (accounts: string[]) => {
         console.log(accounts[0])
       })
-      connectMetaMask.on('chainChanged', (chainId) => {
+      provider.on('chainChanged', (chainId) => {
         console.log(chainId)
       })
       setAccount(await signer.getAddress())
