@@ -13,7 +13,6 @@ export default function WalletTransactions(): JSX.Element {
   const [signer, setSigner] = useState<ethers.Signer>()
   const [lockWallet, setLockWallet] = useState(false)
   const [targetWallet, setTargetWallet] = useState('')
-  const [account, setAccount] = useState('')
 
   async function connectMetaMask(): Promise<void> {
     try {
@@ -22,14 +21,6 @@ export default function WalletTransactions(): JSX.Element {
       setSigner(signer)
       setProviderConnection(true)
       setProviderInstance(provider)
-      // account listener not triggering
-      provider.on('accountsChanged', (accounts: string[]) => {
-        console.log(accounts[0])
-      })
-      provider.on('chainChanged', (chainId) => {
-        console.log(chainId)
-      })
-      setAccount(await signer.getAddress())
     } catch (error) {
       setProviderConnection(false)
       handleError(error)
@@ -57,14 +48,18 @@ export default function WalletTransactions(): JSX.Element {
 
   useEffect(() => {
     connectMetaMask()
+    providerInstance?.on('accountsChanged', (accounts: string[]) => {
+      console.log(accounts[0])
+    })
+    providerInstance?.on('chainChanged', (chainId) => {
+      console.log(chainId)
+    })
     return () => {
-      if (!providerInstance) {
-        //do nothing
-      } else {
-        providerInstance.off
-      }
+      providerInstance?.removeListener('accountsChanged', () => {
+        console.log('removed')
+      })
     }
-  }, [account])
+  }, [])
 
   return (
     <>
