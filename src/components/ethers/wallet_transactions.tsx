@@ -7,19 +7,28 @@ import styles from './wallet_transactions.module.css'
 
 export default function WalletTransactions(): JSX.Element {
   const [providerConnection, setProviderConnection] = useState(false)
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider>()
+  const [providerInstance, setProviderInstance] =
+    useState<ethers.providers.Web3Provider>()
   const [signer, setSigner] = useState<ethers.Signer>()
   const [lockWallet, setLockWallet] = useState(false)
   const [targetWallet, setTargetWallet] = useState('')
+  const [account, setAccount] = useState('')
 
-  async function connectMetaMask(): Promise<ethers.providers.Web3Provider> {
+  async function connectMetaMask(): Promise<void> {
     try {
       const connectMetaMask = await loadProvider()
       const signer = connectMetaMask.getSigner()
       setSigner(signer)
       setProviderConnection(true)
-      setProvider(connectMetaMask)
-      return connectMetaMask
+      setProviderInstance(connectMetaMask)
+      // account listener not triggering
+      connectMetaMask.on('accountsChanged', (accounts: string[]) => {
+        console.log(accounts[0])
+      })
+      connectMetaMask.on('chainChanged', (chainId) => {
+        console.log(chainId)
+      })
+      setAccount(await signer.getAddress())
     } catch (error) {
       setProviderConnection(false)
       handleError(error)
@@ -45,11 +54,16 @@ export default function WalletTransactions(): JSX.Element {
     }
   }
 
-  useEffect((): void => {
+  useEffect(() => {
     connectMetaMask()
-  }, [])
-
-
+    return () => {
+      if (!providerInstance) {
+        //do nothing
+      } else {
+        providerInstance.off
+      }
+    }
+  }, [account])
 
   return (
     <>
@@ -80,7 +94,7 @@ export default function WalletTransactions(): JSX.Element {
         </button>
       </section>
       <CurrencyTransaction
-        provider={provider}
+        provider={providerInstance}
         signer={signer}
         targetWallet={targetWallet}
         lockWallet={lockWallet}
