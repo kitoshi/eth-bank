@@ -9,7 +9,7 @@
   <h3 align="center">Ethereum Bank</h3>
 
   <p align="center">
-    ERC20 token simple ui to Transact and Approve using Metamask
+    ERC20 token UI to transfer and approve using browser wallet MetaMask
     <br />
     <br />
     <a href="https://master.d1bn868c3ra53h.amplifyapp.com/">View Demo</a>
@@ -132,23 +132,3 @@ Project Link: [https://github.com/kitoshi/eth-bank](https://github.com/kitoshi/e
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-
-<!-- [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-[contributors-shield]: https://img.shields.io/github/contributors/kitoshi/eth-bank.svg?style=for-the-badge
-[contributors-url]: https://github.com/kitoshi/eth-bank/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/kitoshi/eth-bank.svg?style=for-the-badge
-[forks-url]: https://github.com/kitoshi/eth-bank/network/members
-[stars-shield]: https://img.shields.io/github/stars/kitoshi/eth-bank.svg?style=for-the-badge
-[stars-url]: https://github.com/kitoshi/eth-bank/stargazers
-[issues-shield]: https://img.shields.io/github/issues/kitoshi/eth-bank.svg?style=for-the-badge
-[issues-url]: https://github.com/kitoshi/eth-bank/issues
-[license-shield]: https://img.shields.io/github/license/kitoshi/eth-bank.svg?style=for-the-badge
-[license-url]: https://github.com/kitoshi/eth-bank/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/robert-k-charlton/  -->
