@@ -5,7 +5,7 @@ function App() {
   return (
     <div className={styles.div}>
       <header className='App-header'>
-        <h1 className={styles.h1}>Transact DAI and USDC</h1>
+        <h1 className={styles.h1}>Simple Browser UI to Transact Cryptocurrency DAI and USDC on chain</h1>
       </header>
       <main>
         <Transactions />

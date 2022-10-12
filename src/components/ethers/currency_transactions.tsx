@@ -113,9 +113,7 @@ export default function CurrencyTransaction(props: CurrencyTransactionProps) {
             address={address}
             lockWallet={props.lockWallet}
           />
-        ) : (
-          'loading'
-        )}
+        ): null}
       </ul>
     </>
   )

@@ -58,6 +58,7 @@ export default function WalletTransactions(): JSX.Element {
       providerInstance?.removeListener('accountsChanged', () => {
         console.log('removed')
       })
+      // add chain changed
     }
   }, [])
 
@@ -67,8 +68,8 @@ export default function WalletTransactions(): JSX.Element {
         style={providerConnection ? { display: 'none' } : { display: 'block' }}
         className={styles.section}
       >
-        <p>Please Install MetaMask</p>
-        <p>Connection is {providerConnection ? 'true' : 'broken.'}</p>
+        <p>Metamask Browser Extension not detected. Please install extension</p>
+        <p>Connection is {providerConnection ? 'true' : 'offline.'}</p>
         <button onClick={connectMetaMask}>Retry</button>
       </section>
       <section
